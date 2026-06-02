@@ -1,0 +1,57 @@
+networks:
+  backend-network:
+    driver: bridge
+
+volumes:
+  pg_data: { }
+
+services:
+  postgres-ut:
+    image: postgres:15-alpine
+    container_name: postgres
+
+    ports:
+      - "5432:5432"
+
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    networks:
+      - backend-network
+
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  service-ut:
+    container_name: service-ut
+    image: service-ut:0.1.0
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - backend-network
+
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_HOST: postgres-ut
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    depends_on:
+      postgres-ut:
+        condition: service_healthy
