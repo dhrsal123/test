@@ -2,7 +2,7 @@ package edu.ut.convocatoria.controller;
 
 import edu.ut.convocatoria.domain.dto.response.ErrorResponseDTO;
 import edu.ut.convocatoria.domain.enumerated.ExceptionTypes;
-import edu.ut.convocatoria.domain.exceptions.ConvocatoriaExceptions;
+import edu.ut.convocatoria.domain.exceptions.ConvocatoriaException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +34,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.internalServerError().body(error);
     }
 
-    @ExceptionHandler(ConvocatoriaExceptions.class)
-    public ResponseEntity<ErrorResponseDTO> handleConvocatoriaException(ConvocatoriaExceptions e) {
+    @ExceptionHandler(ConvocatoriaException.class)
+    public ResponseEntity<ErrorResponseDTO> handleConvocatoriaException(ConvocatoriaException e) {
         var exceptionType = e.getExceptionType();
         log.warn("Business exception [{}]: {}", exceptionType.getCode(), e.getMessage());
 
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponseDTO> handleTypeMismatchException(MethodArgumentTypeMismatchException e) {
         Class<?> requiredType = e.getRequiredType();
-        if(Objects.isNull(requiredType)){
+        if (Objects.isNull(requiredType)) {
             requiredType = Object.class;
         }
 
