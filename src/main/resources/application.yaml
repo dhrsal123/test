@@ -19,3 +19,8 @@ spring:
     user: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     change-log: classpath:/db/changelog/db.changelog-master.sql
+
+convocatoria:
+  jwt:
+    expiration-time: 60000
+    secret: ${JWT_SECRET}

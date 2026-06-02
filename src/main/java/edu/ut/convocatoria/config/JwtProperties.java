@@ -3,22 +3,23 @@ package edu.ut.convocatoria.config;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 
 
 @Setter
 @Getter
-@Configuration
-public class JwtConfig {
+@Component
+@NoArgsConstructor
+@ConfigurationProperties(prefix = "convocatoria.jwt")
+public class JwtProperties {
 
-    @Value("${convocatoria.jwt.expiration-time}")
     private Long expirationTime;
 
-    @Value("${convocatoria.jwt.secret}")
     private String secret;
 
     private SecretKey key;
