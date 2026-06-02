@@ -22,5 +22,5 @@ spring:
 
 convocatoria:
   jwt:
-    expiration-time: 60000
+    expiration-time: 86400000
     secret: ${JWT_SECRET}
