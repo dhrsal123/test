@@ -12,6 +12,10 @@ public record ProductRequestDTO(
         String name,
 
         @NotEmpty
+        @Size(min = 3, max = 50)
+        String sku,
+
+        @NotEmpty
         @Size(min = 10, max = 512)
         String description,
 

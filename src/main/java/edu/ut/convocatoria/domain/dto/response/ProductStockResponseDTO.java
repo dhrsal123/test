@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public record ProductStockResponseDTO(
         UUID id,
+        String sku,
         String name,
         String description,
         Double price,
