@@ -111,3 +111,19 @@ CREATE TABLE user_roles
     CONSTRAINT fk_user_roles_user FOREIGN KEY (user_id) REFERENCES user_entity (id) ON DELETE CASCADE,
     CONSTRAINT fk_user_roles_role FOREIGN KEY (role_id) REFERENCES role_entity (id) ON DELETE CASCADE
 );
+
+
+--changeset convocatoria:9-add-sku-to-product
+-- Premise: Adding SKU column to product_entity.
+
+ALTER TABLE product_entity ADD COLUMN sku VARCHAR(50);
+
+UPDATE product_entity SET sku = 'SKU-A123-BURGER' WHERE id = 'e68407fc-8f78-4bfb-b6d8-1fc45bfae101';
+UPDATE product_entity SET sku = 'SKU-B123-FRIES' WHERE id = 'd2b0e9db-6fe2-4b2a-bf35-a7459638dc52';
+UPDATE product_entity SET sku = 'SKU-C123-PANCAKE' WHERE id = 'a58cd01b-bf2e-4b7f-ad8b-96791b7d5267';
+
+UPDATE product_entity SET sku = CONCAT('SKU-GEN-', SUBSTR(CAST(id AS VARCHAR), 1, 8)) WHERE sku IS NULL;
+
+ALTER TABLE product_entity ALTER COLUMN sku SET NOT NULL;
+
+ALTER TABLE product_entity ADD CONSTRAINT uk_product_sku UNIQUE (sku);

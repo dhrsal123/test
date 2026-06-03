@@ -16,12 +16,14 @@ import org.mapstruct.ReportingPolicy;
 public interface ProductBranchMapper {
 
     @Mapping(target = "name", source = "productEntity.name")
+    @Mapping(target = "sku", source = "productEntity.sku")
     @Mapping(target = "description", source = "productEntity.description")
     @Mapping(target = "price", source = "productEntity.price")
     @Mapping(target = "stock", source = "stock")
     ProductStockResponseDTO toDTO(ProductEntity productEntity, Integer stock);
 
     @Mapping(target = "branchId", source = "branchId")
+    @Mapping(target = "maxStockProduct.sku", source = "sku")
     @Mapping(target = "maxStockProduct.id", source = "productId")
     @Mapping(target = "maxStockProduct.name", source = "name")
     @Mapping(target = "maxStockProduct.description", source = "description")

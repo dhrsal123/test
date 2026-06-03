@@ -19,6 +19,7 @@ public interface ProductBranchRepository extends JpaRepository<ProductBranchEnti
                 SELECT b.id as branchId,
                        p.id as productId,
                        p.name,
+                       p.sku,
                        p.description,
                        p.price,
                        ROW_NUMBER() OVER (PARTITION BY b.id ORDER BY pb.stock DESC) as ranking
@@ -30,6 +31,7 @@ public interface ProductBranchRepository extends JpaRepository<ProductBranchEnti
             SELECT branchId,
                    productId,
                    name,
+                   sku,
                    description,
                    price
             FROM BranchProducts

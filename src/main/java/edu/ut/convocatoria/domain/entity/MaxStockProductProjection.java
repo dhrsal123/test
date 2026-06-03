@@ -16,6 +16,7 @@ public class MaxStockProductProjection {
     private UUID branchId;
     private UUID productId;
     private String name;
+    private String sku;
     private String description;
     private Double price;
 }
