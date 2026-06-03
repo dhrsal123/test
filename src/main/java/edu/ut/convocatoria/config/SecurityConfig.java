@@ -42,6 +42,11 @@ public class SecurityConfig {
                                 .requestMatchers("/swagger-ui/swagger-config**").permitAll()
                                 .anyRequest().authenticated()
                 )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED)
+                        )
+                )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
