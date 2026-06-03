@@ -105,7 +105,7 @@ public class FranchiseController {
                     responseCode = "200", description = "Consulta realizada de manera exitosa",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = MaxStockResponseDTO.class)))
             ),
-            @ApiResponse(responseCode = "401", description = "No autorizado", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Token JWT ausente o invalido.", content = @Content),
             @ApiResponse(
                     responseCode = "404", description = "La franquicia indicada no fue encontrada en el sistema",
                     content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))
