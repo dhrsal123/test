@@ -37,10 +37,16 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/auth/register").permitAll()
                                 .requestMatchers("/api/v1/auth/login").permitAll()
                                 .requestMatchers("/swagger-ui**").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers("/v3/api-docs/**").permitAll()
                                 .requestMatchers("/swagger/v3/api-docs/**").permitAll()
                                 .requestMatchers("/swagger-ui/swagger-config**").permitAll()
                                 .anyRequest().authenticated()
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED)
+                        )
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

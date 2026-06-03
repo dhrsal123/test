@@ -27,10 +27,13 @@ public class JwtTokenProvider {
     }
 
     public String generateToken(Authentication authentication) {
-        var userPrincipal = (User) authentication.getPrincipal();
-
-        if(Objects.isNull(userPrincipal)){
+        var username = "";
+        if (Objects.isNull(authentication.getPrincipal())) {
             return null;
+        } else if (authentication.getPrincipal() instanceof User userPrincipal) {
+            username = userPrincipal.getUsername();
+        } else if (authentication.getPrincipal() instanceof String principal) {
+            username = principal;
         }
 
         final var now = Instant.now();
@@ -40,11 +43,11 @@ public class JwtTokenProvider {
         );
 
         return Jwts.builder()
-                .subject(userPrincipal.getUsername())
-                .issuedAt(Date.from(now))
-                .expiration(expirationDate)
-                .signWith(jwtProperties.getKey())
-                .compact();
+                        .subject(username)
+                        .issuedAt(Date.from(now))
+                        .expiration(expirationDate)
+                        .signWith(jwtProperties.getKey())
+                        .compact();
     }
 
     public String getUserIdFromToken(String token) {

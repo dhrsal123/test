@@ -3,7 +3,6 @@ package edu.ut.convocatoria.service.impl;
 import edu.ut.convocatoria.domain.dto.request.ProductRequestDTO;
 import edu.ut.convocatoria.domain.dto.request.ProductStockRequestDTO;
 import edu.ut.convocatoria.domain.dto.response.ProductResponseDTO;
-import edu.ut.convocatoria.domain.dto.response.ProductStockResponseDTO;
 import edu.ut.convocatoria.domain.entity.ProductBranchEntity;
 import edu.ut.convocatoria.domain.entity.ProductEntity;
 import edu.ut.convocatoria.domain.enumerated.ExceptionTypes;
@@ -32,8 +31,6 @@ public class BranchServiceImpl implements BranchService {
     private final ProductMapper productMapper;
     private final ProductBranchMapper productBranchMapper;
 
-
-    // todo: check if this logic is correct/fine
     @Override
     public ProductResponseDTO createProduct(UUID branchId, ProductRequestDTO productRequestDTO) {
 
@@ -43,19 +40,34 @@ public class BranchServiceImpl implements BranchService {
                         ExceptionTypes.NOT_FOUND
                 ));
 
-        var productEntity = productMapper.toEntity(productRequestDTO);
+        var product = productRepository.findBySku(productRequestDTO.sku())
+                .orElseGet(() -> {
+                    var newProductEntity = productMapper.toEntity(productRequestDTO);
+                    return productRepository.save(newProductEntity);
+                });
 
-        var savedProduct = productRepository.save(productEntity);
+        var alreadyExistsInBranch = productBranchRepository
+                .findByBranchIdAndProductId(
+                        branch.getId(),
+                        product.getId()
+                );
+
+        if (alreadyExistsInBranch.isPresent()) {
+            throw new ConvocatoriaException(
+                    "This product is already associated with the branch.",
+                    ExceptionTypes.BUSINESS_ERROR
+            );
+        }
 
         var productBranchEntity = new ProductBranchEntity();
 
         productBranchEntity.setBranch(branch);
-        productBranchEntity.setProduct(savedProduct);
+        productBranchEntity.setProduct(product);
         productBranchEntity.setStock(productRequestDTO.stock());
 
         productBranchRepository.save(productBranchEntity);
 
-        return productMapper.toDTO(savedProduct);
+        return productMapper.toDTO(product, productBranchEntity.getStock());
     }
 
     @Override
@@ -66,11 +78,10 @@ public class BranchServiceImpl implements BranchService {
                         new ConvocatoriaException("Product not found.", ExceptionTypes.NOT_FOUND)
                 );
         productBranchRepository.delete(productBranchEntity);
-        productRepository.deleteById(productId);
     }
 
     @Override
-    public ProductStockResponseDTO updateStock(
+    public ProductResponseDTO updateStock(
             UUID branchId,
             UUID productId,
             ProductStockRequestDTO productStockRequestDTO
