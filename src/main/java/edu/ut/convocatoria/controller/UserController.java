@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
 @Tag(
-        name = "1. Autenticacion",
+        name = "Autenticacion",
         description = "Endpoints publicos los cuales le permiten al usuario iniciar sesion y registrarse."
 )
 public class UserController {

@@ -34,7 +34,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/branches")
-@Tag(name = "2. Sucursales e inventario", description = "Endpoints que permiten el manejo de los productos en las sucursales especificadas.")
+@Tag(name = "Sucursales e inventario", description = "Endpoints que permiten el manejo de los productos en las sucursales especificadas.")
 public class BranchController {
     private final BranchService branchService;
 
