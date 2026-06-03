@@ -22,7 +22,7 @@ public interface ProductBranchRepository extends JpaRepository<ProductBranchEnti
                        p.sku,
                        p.description,
                        p.price,
-                       ROW_NUMBER() OVER (PARTITION BY b.id ORDER BY pb.stock DESC) as ranking
+                       DENSE_RANK() OVER (PARTITION BY b.id ORDER BY pb.stock DESC) as ranking
                 FROM product_branch_entity pb
                          JOIN branch_entity b ON pb.branch_id = b.id
                          JOIN product_entity p ON pb.product_id = p.id
