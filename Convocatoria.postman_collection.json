@@ -1,0 +1,330 @@
+{
+  "info": {
+    "_postman_id": "58fd397d-9210-47c2-8f15-51335452feb3",
+    "name": "Convocatoria",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50901056",
+    "_collection_link": "https://go.postman.co/collection/50901056-58fd397d-9210-47c2-8f15-51335452feb3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Convocatoria",
+      "item": [
+        {
+          "name": "Branches",
+          "item": [
+            {
+              "name": "Update Product Stock",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"stock\": 2000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/branches/{{branch_id}}/products/{{product_id}}/stock",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "branches",
+                    "{{branch_id}}",
+                    "products",
+                    "{{product_id}}",
+                    "stock"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/branches/{{branch_id}}/products/{{product_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "branches",
+                    "{{branch_id}}",
+                    "products",
+                    "{{product_id}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Papitas con queso\",\n    \"sku\": \"SKU-A-Papitas\",\n    \"description\": \"Papitas con queso\",\n    \"price\": 5.99,\n    \"stock\": 1000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/branches/{{branch_id}}/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "branches",
+                    "{{branch_id}}",
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Franchises",
+          "item": [
+            {
+              "name": "Create Franchise",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"MacDonalds multicentro\",\n    \"description\": \"McDonalds multicentro\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/franchises",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "franchises"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get product with max stock for each franchise branch",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/franchises/{{franchise_id}}/products/max-stock",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "franchises",
+                    "{{franchise_id}}",
+                    "products",
+                    "max-stock"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Franchise Branch",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"MacDonalds multicentro\",\n    \"description\": \"McDonalds multicentro\",\n    \"address\": \"Avenida siempre viva.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/franchises/{{franchise_id}}/branches",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "franchises",
+                    "{{franchise_id}}",
+                    "branches"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"sgonzalezd@ut.edu.co\",\n    \"name\": \"michael jackson\",\n    \"username\": \"mjackson123\",\n    \"password\": \"1234micontraseña\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"mjackson123\",\n    \"password\": \"1234micontraseña\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "franchise_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "branch_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "product_id",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
