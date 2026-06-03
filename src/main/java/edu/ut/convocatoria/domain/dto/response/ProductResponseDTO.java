@@ -8,7 +8,8 @@ public record ProductResponseDTO(
         String sku,
         String name,
         String description,
-        Double price
+        Double price,
+        Integer stock
 ) {
 
 }

@@ -4,6 +4,7 @@ import edu.ut.convocatoria.domain.dto.request.ProductRequestDTO;
 import edu.ut.convocatoria.domain.dto.response.ProductResponseDTO;
 import edu.ut.convocatoria.domain.entity.ProductEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
@@ -14,5 +15,6 @@ import org.mapstruct.ReportingPolicy;
 public interface ProductMapper {
     ProductEntity toEntity(ProductRequestDTO productRequestDTO);
 
-    ProductResponseDTO toDTO(ProductEntity productEntity);
+    @Mapping(target = "stock", source="stock")
+    ProductResponseDTO toDTO(ProductEntity productEntity, Integer stock);
 }

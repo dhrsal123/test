@@ -3,7 +3,6 @@ package edu.ut.convocatoria.service.impl;
 import edu.ut.convocatoria.domain.dto.request.ProductRequestDTO;
 import edu.ut.convocatoria.domain.dto.request.ProductStockRequestDTO;
 import edu.ut.convocatoria.domain.dto.response.ProductResponseDTO;
-import edu.ut.convocatoria.domain.dto.response.ProductStockResponseDTO;
 import edu.ut.convocatoria.domain.entity.ProductBranchEntity;
 import edu.ut.convocatoria.domain.entity.ProductEntity;
 import edu.ut.convocatoria.domain.enumerated.ExceptionTypes;
@@ -68,7 +67,7 @@ public class BranchServiceImpl implements BranchService {
 
         productBranchRepository.save(productBranchEntity);
 
-        return productMapper.toDTO(product);
+        return productMapper.toDTO(product, productBranchEntity.getStock());
     }
 
     @Override
@@ -82,7 +81,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public ProductStockResponseDTO updateStock(
+    public ProductResponseDTO updateStock(
             UUID branchId,
             UUID productId,
             ProductStockRequestDTO productStockRequestDTO

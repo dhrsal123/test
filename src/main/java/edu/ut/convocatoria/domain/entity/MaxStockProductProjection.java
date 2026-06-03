@@ -19,4 +19,5 @@ public class MaxStockProductProjection {
     private String sku;
     private String description;
     private Double price;
+    private Integer stock;
 }

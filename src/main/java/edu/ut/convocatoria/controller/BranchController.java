@@ -4,7 +4,6 @@ import edu.ut.convocatoria.domain.dto.request.ProductRequestDTO;
 import edu.ut.convocatoria.domain.dto.request.ProductStockRequestDTO;
 import edu.ut.convocatoria.domain.dto.response.ErrorResponseDTO;
 import edu.ut.convocatoria.domain.dto.response.ProductResponseDTO;
-import edu.ut.convocatoria.domain.dto.response.ProductStockResponseDTO;
 import edu.ut.convocatoria.service.BranchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -86,12 +85,12 @@ public class BranchController {
             description = "Actualiza las existencias disponibles de un producto específico dentro de una sucursal."
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Stock actualizado exitosamente", content = @Content(schema = @Schema(implementation = ProductStockResponseDTO.class))),
+            @ApiResponse(responseCode = "200", description = "Stock actualizado exitosamente", content = @Content(schema = @Schema(implementation = ProductResponseDTO.class))),
             @ApiResponse(responseCode = "400", description = "Datos de stock inválidos", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class))),
             @ApiResponse(responseCode = "401", description = "Token JWT ausente o invalido.", content = @Content),
             @ApiResponse(responseCode = "404", description = "La relación de producto y sucursal no existe", content = @Content(schema = @Schema(implementation = ErrorResponseDTO.class)))
     })
-    public ResponseEntity<ProductStockResponseDTO> updateStock(
+    public ResponseEntity<ProductResponseDTO> updateStock(
             @Valid @NotNull @PathVariable("branchId") UUID branchId,
             @Valid @NotNull @PathVariable("productId") UUID productId,
             @Valid @RequestBody ProductStockRequestDTO productStockRequestDTO
